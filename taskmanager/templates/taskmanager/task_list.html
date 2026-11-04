@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Список моїх завдань</h1>
+<ul>
+    {% for task in my_tasks %}
+        <li>
+            <a href="{% url 'task_detail' task.pk %}">{{task.title}}</a>
+            - Статус {{task.status}}
+        </li>
+    {% empty %}
+        <li>Завдань поки немає.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'task_create' %}">Створити нове завдання</a>
+</body>
+</html>

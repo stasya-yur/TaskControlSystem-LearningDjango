@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>{{object.title}}</h1>
+<p><strong>Опис:</strong> {{object.text}}</p>
+<p><strong>Пріорітет: </strong>{{object.priority}}</p>
+<p><strong>Дедлайн: </strong>{{object.deadline}}</p>
+<a href="{% url 'task_list' %}">Назад до списку</a>
+</body>
+</html>
