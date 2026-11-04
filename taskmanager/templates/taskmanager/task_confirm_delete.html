@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm delete</title>
+</head>
+<body>
+<h1>Видалення завдання</h1>
+<p>Ви впевнені, що хочете видалити завдання "{{object.title}}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Так, я хочу видалити це завдання</button>
+
+</form>
+<a href="{% url 'task_list' %}">Скасувати</a>
+</body>
+</html>

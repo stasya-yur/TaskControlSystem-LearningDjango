@@ -9,6 +9,10 @@
 <p><strong>Опис:</strong> {{object.text}}</p>
 <p><strong>Пріорітет: </strong>{{object.priority}}</p>
 <p><strong>Дедлайн: </strong>{{object.deadline}}</p>
+<hr>
+<a href="{% url 'task_update' object.pk %}">Редагувати</a>
+<a href="{% url 'task_delete' object.pk %}" style="color:#a33939;">Видалити</a>
+<hr>
 <a href="{% url 'task_list' %}">Назад до списку</a>
 </body>
 </html>
