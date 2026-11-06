@@ -5,6 +5,15 @@
     <title>Title</title>
 </head>
 <body>
+{% if user.is_authenticated %}
+<p>Привіт, <strong>{{user.username}}</strong>!</p>
+<form method="post" action="{% url 'logout' %}" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit">Вийти з акаунту</button>
+</form>
+{% else %}
+<p>Ви не увійшли в систему. <a href="{% url 'login' %}">Увійти</a></p>
+{% endif%}
 <h1>Список моїх завдань</h1>
 <ul>
     {% for task in my_tasks %}

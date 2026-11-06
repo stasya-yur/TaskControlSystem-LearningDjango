@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -15,6 +16,11 @@ class TaskListView(ListView):
 class TaskDetailView(DetailView):
     model = Task
     template_name = 'taskmanager/task_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CommentForm()
+        return context
 
 class TaskCreateView(CreateView):
     model = Task
@@ -41,8 +47,17 @@ class TaskDeleteView(DeleteView):
 class CommentCreateView(CreateView):
     model = Comment
     form_class = CommentForm
-    template_name = 'taskmanager/task_comment.html'
-    success_url = reverse_lazy('task')
     def form_valid(self, form):
         form.instance.user = self.request.user
+
+        from django.shortcuts import get_object_or_404
+        form.instance.task = get_object_or_404(Task, pk=self.kwargs['pk'])
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('task_detail',kwargs={'pk':self.kwargs['pk']})
+
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'registration/register.html'
+    success_url = reverse_lazy('login')

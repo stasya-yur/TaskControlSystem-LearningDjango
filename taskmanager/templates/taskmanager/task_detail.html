@@ -14,5 +14,27 @@
 <a href="{% url 'task_delete' object.pk %}" style="color:#a33939;">Видалити</a>
 <hr>
 <a href="{% url 'task_list' %}">Назад до списку</a>
+<h3>Обговорення завдання</h3>
+<ul>
+    {% for comment in object.comment_set.all %}
+        <li>
+            <strong>{{comment.user.username}}</strong> ({{comment.date}}):
+            <p>{{comment.text}}</p>
+        </li>
+    {% empty %}
+        <p>Коментарів поки немає.</p>
+    {% endfor %}
+</ul>
+<hr>
+{% if user.is_authenticated %}
+    <h4>Додати коментар</h4>
+<form action="{% url 'add_comment' object.pk %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Надіслати</button>
+</form>
+{%else%}
+<p><a href="{%url 'login'%}">Увійдіть</a>, щоб залишати коментарі.</p>
+{%endif%}
 </body>
 </html>
